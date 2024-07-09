@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root{
+    --bg: #d8d0d0;
+    --text: #000000;
+    --softText: #cacdd1;
+    --card: #FDBA74;
+}
+
+.dark{
+    --bg: #0F172A;
+    --text: #ffffff;
+    --softText: #cacdd1;
+    --card: #914b00;
+}
+
+.light{
+    --bg: #d8d0d0;
+    --text: #000000;
+    --softText: #cacdd1;
+    --card: #FDBA74;
+}
