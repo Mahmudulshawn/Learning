@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root{
+    --bg: white;
+    --text: black;
+    --button: teal;
+    --theme: white;
+}
+.light{
+    --bg: white;
+    --text: black;
+    --button: rgb(33, 228, 228);
+    --theme: white;
+}
+.dark{
+    --bg: #172842;
+    --text: white;
+    --button: #16a34a;
+    --theme: grey;
+}
