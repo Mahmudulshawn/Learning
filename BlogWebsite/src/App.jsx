@@ -34,6 +34,7 @@ function App() {
         <Header/>
         <main>
           TODO: {/* <Outlet/> */}
+          <Outlet />
         </main>
         <Footer/>
       </div>
