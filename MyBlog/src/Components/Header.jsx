@@ -1,15 +1,22 @@
 import React from 'react'
 import logo from '../assets/logo.jpg'
 import Button from './Button'
-import {Navigate, NavLink, useNavigate} from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../utils/AuthContext'
 import { useTheme } from '../Contexts/ThemeContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons'
 function Header() {
-  const {user} = useAuth()
-  const {theme, toggleTheme } = useTheme()
+  const { user, logoutUser } = useAuth()
+  const { toggleTheme } = useTheme()
   const navigate = useNavigate()
 
-  const handleClick = () => {
+  const logoutClick = () => {
+    logoutUser()
+    navigate('/login')
+  }
+
+  const signupClick = () => {
     navigate('/signup')
   }
 
@@ -33,15 +40,15 @@ function Header() {
         <li className='hover:text-red-600 hover:scale-125 '>
           <NavLink to="contact">Contact</NavLink>
         </li>
-        <li onClick={toggleTheme}>{theme}</li>
+        <li onClick={toggleTheme} className='text-xl'><FontAwesomeIcon icon={faCircleHalfStroke} /></li>
       </ul>
 
       {user ? 
       (
-      <Button children="Logout" className='bg-indigo-600 text-[var(--text)] shadow-lg shadow-indigo-600/50 rounded-lg p-2.5 hover:bg-indigo-500 '/>
+      <Button onClick={logoutClick} children="Logout" className='bg-indigo-600 text-[var(--text)] shadow-lg shadow-indigo-600/50 rounded-lg p-2.5 hover:bg-indigo-500 '/>
       ):
       (
-      <Button onClick={handleClick} children="Signup" className='bg-indigo-600 text-[var(--text)] shadow-lg shadow-indigo-600/50 rounded-lg p-2.5 hover:bg-indigo-500 '/>
+      <Button onClick={signupClick} children="Signup" className='bg-indigo-600 text-[var(--text)] shadow-lg shadow-indigo-600/50 rounded-lg p-2.5 hover:bg-indigo-500 '/>
       )}
 
       </nav>

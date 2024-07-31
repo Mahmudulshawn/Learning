@@ -1,18 +1,70 @@
 import { useContext, useState, useEffect, createContext } from "react";
+import {account} from '../AppwriteConfig'
+import { ID } from "appwrite";
+// import { useNavigate } from "react-router-dom";
 
 
 const AuthContext = createContext()
 
+
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
+    
+    useEffect(() => {
+        checkUserStatus()
+    },[])
+    
+    // const navigate = useNavigate()
 
-    const loginUser = (userInfo) => {}
 
-    const logoutUser = () => {}
+    //login logic for appwrite
+    const loginUser = async (userInfo) => {
+        setLoading(true)
+        try {
+            const response = await account.createEmailPasswordSession(userInfo.email, userInfo.password)
+            const accountDetails = await account.get()
+            setUser(accountDetails)
+            // navigate("/")
+        } catch (error) {
+            console.error(error)
+        }
+        setLoading(false)
+    }
 
-    const registerUser = (userInfo) => {}
+    //logout logic for appwrite
+    const logoutUser = () => {
+        account.deleteSession('current')
+        setUser(null)
+    }
 
-    const checkUserStatus = () => {}
+
+    //register logic for appwrite
+    const registerUser = async (userInfo) => {
+        setLoading(true)
+        try {
+            const response = await account.create( ID.unique(), userInfo.name, userInfo.email, userInfo.password1, userInfo.password2 )
+            await account.createEmailPasswordSession(userInfo.email, userInfo.password1)
+            const accountDetails = await account.get()
+            setUser(accountDetails)
+            // navigate("/")
+        } catch (error) {
+            console.error(error)
+        }
+        setLoading(false)
+    }
+
+
+    //check user status for appwrite
+    const checkUserStatus = async () => {
+        try {
+            const accountDetails = await account.get()
+            setUser(accountDetails)
+        } catch (error) {
+            console.error(error)
+        }
+        setLoading(false)
+    }
 
     const contextData = {
         user,
@@ -24,7 +76,7 @@ export const AuthContextProvider = ({ children }) => {
 
     return(
         <AuthContext.Provider value={contextData}>
-            {children}
+            {loading ? <p>Loading...</p> : children}
         </AuthContext.Provider>
     )
 }
