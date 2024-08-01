@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
     //     }
     // },[])
     
-    return user ? <Outlet/> : <Navigate to="/login"/>
+    return user ? <>{children}</> : <Navigate to="/login"/>
 }
 
 

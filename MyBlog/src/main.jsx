@@ -13,6 +13,7 @@ import ProtectedRoute from './utils/ProtectedRoute.jsx'
 import { AuthContextProvider } from './utils/AuthContext.jsx'
 import ThemeProvider from './Providers/ThemeProvider.jsx'
 import { ThemeContextProvider } from './Contexts/ThemeContext.jsx'
+import { PostContextProvider } from './Contexts/PostContext.jsx'
 
 
 const router = createBrowserRouter(
@@ -80,7 +81,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthContextProvider>
       <ThemeContextProvider>
         <ThemeProvider>
-          <RouterProvider router={router}/>
+          <PostContextProvider>
+            <RouterProvider router={router}/>
+          </PostContextProvider>
         </ThemeProvider>
       </ThemeContextProvider>
     </AuthContextProvider>

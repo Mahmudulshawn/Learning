@@ -38,13 +38,13 @@ export const AuthContextProvider = ({ children }) => {
         setUser(null)
     }
 
-
+    
     //register logic for appwrite
     const registerUser = async (userInfo) => {
         setLoading(true)
         try {
-            const response = await account.create( ID.unique(), userInfo.name, userInfo.email, userInfo.password1, userInfo.password2 )
-            await account.createEmailPasswordSession(userInfo.email, userInfo.password1)
+            const response = await account.create( ID.unique(), userInfo.name, userInfo.email, userInfo.password )
+            await account.createEmailPasswordSession(userInfo.email, userInfo.password)
             const accountDetails = await account.get()
             setUser(accountDetails)
             // navigate("/")

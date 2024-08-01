@@ -1,0 +1,74 @@
+import { createContext, useContext, useState, useEffect } from "react";
+import { ID, Query } from 'appwrite'
+import { databases } from "../AppwriteConfig";
+import conf from '../conf/conf'
+
+
+const PostContext = createContext()
+
+export const PostContextProvider = ({children}) => {
+    const [posts, setPosts] = useState([])
+
+
+    const createPost = async (postInfo) => {
+        try {
+            const response = await databases.createDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            ID.unique(),
+            postInfo
+            )
+            setPosts((posts) => [response, ...posts].slice(0, 10))
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const removePost = async (id) => {
+        try {
+            await databases.deleteDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                id
+            )
+            setPosts((posts) => posts.filter((post) => post.$id !== id))
+            await getPost()
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const getPost = async () => {
+        try {
+            const response = await databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [Query.orderDesc("$createdAt"), Query.limit(10)]
+            )
+            setPosts(response.documents)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        getPost()
+    },[])
+
+
+
+    const contextData = {
+        posts,
+        createPost,
+        removePost,
+        getPost,
+    }
+
+    return (<PostContext.Provider value={contextData}>{children}</PostContext.Provider>)
+}
+
+export const usePost = () => {
+    return useContext(PostContext);
+}
+
+export default PostContext

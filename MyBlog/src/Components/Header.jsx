@@ -22,8 +22,9 @@ function Header() {
 
   return (
     <nav className='bg-transparent backdrop:blur-lg shadow-lg flex justify-between items-center sticky top-0 py-2 px-8  '>
-      <div className="logo h-[5rem] w-[5rem] object-cover overflow-hidden content-center hover:skew-y-3 ">
+      <div className="logo h-[5rem] w-[5rem] object-cover overflow-hidden content-center ">
         <img src={logo} 
+        alt='logo'
         className='rounded-full'
         />
       </div>
@@ -45,10 +46,10 @@ function Header() {
 
       {user ? 
       (
-      <Button onClick={logoutClick} children="Logout" className='bg-indigo-600 text-[var(--text)] shadow-lg shadow-indigo-600/50 rounded-lg p-2.5 hover:bg-indigo-500 '/>
+      <Button onClick={logoutClick} children="Logout"/>
       ):
       (
-      <Button onClick={signupClick} children="Signup" className='bg-indigo-600 text-[var(--text)] shadow-lg shadow-indigo-600/50 rounded-lg p-2.5 hover:bg-indigo-500 '/>
+      <Button onClick={signupClick} children="Signup" />
       )}
 
       </nav>

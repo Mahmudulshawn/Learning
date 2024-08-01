@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom'
 function Signup() {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
-  const [password1, setPassword1] = useState("")
-  const [password2, setPassword2] = useState("")
+  const [password, setPassword] = useState("")
   const navigate = useNavigate()
   const { user, registerUser } = useAuth()
 
@@ -22,11 +21,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (password1 !== password2) {
-      alert("Passwords do not match!")
-      return
-    }
-    const userInfo = { name, email, password1, password2 }
+    const userInfo = { name, email, password }
     registerUser(userInfo)
   }
 
@@ -41,7 +36,7 @@ function Signup() {
         <h1 className='text-3xl font-bold  '>Sign Up</h1>
 
         <Input 
-        type='text' 
+        type='email' 
         value={email} 
         onChange={(e) => {setEmail(e.target.value)}}
         placeholder='Enter your email...'
@@ -56,15 +51,8 @@ function Signup() {
 
         <Input 
         type='password' 
-        value={password1}
-        onChange={(e) => {setPassword1(e.target.value)}}
-        placeholder='Enter your password...'
-        />
-
-        <Input 
-        type='password' 
-        value={password2}
-        onChange={(e) => {setPassword2(e.target.value)}}
+        value={password}
+        onChange={(e) => {setPassword(e.target.value)}}
         placeholder='Enter your password...'
         />
 
