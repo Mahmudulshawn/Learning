@@ -21,7 +21,7 @@ function Header() {
   }
 
   return (
-    <nav className='bg-transparent backdrop-blur-3xl shadow-lg flex justify-between items-center sticky top-0 py-2 px-8  '>
+    <nav className='bg-transparent backdrop-blur-xl shadow-lg flex justify-between items-center sticky top-0 py-2 px-8  '>
       <div className="logo h-[5rem] w-[5rem] object-cover overflow-hidden content-center ">
         <img src={logo} 
         alt='logo'
@@ -33,7 +33,7 @@ function Header() {
           <NavLink to="home">Home</NavLink>
         </li>
         <li className='hover:text-red-600 hover:scale-125 '>
-          <NavLink to="posts">Posts</NavLink>
+          <NavLink to="posts">My Posts</NavLink>
         </li>
         <li className='hover:text-red-600 hover:scale-125 '>
           <NavLink to="about">About</NavLink>

@@ -20,6 +20,7 @@ export default function Post() {
 
   return (
     <>
+    
       {/* Show the submit form to logged in users. */}
       {user ? (
         <section className="flex flex-col justify-center items-center rounded-xl p-4 border" >
@@ -56,23 +57,36 @@ export default function Post() {
           <p>Please login to submit an post.</p>
         </section>
       )}
-      <section className="flex flex-col justify-center items-center gap-4 border rounded-xl p-4">
-        <h1 className="mt-8">Latest Posts</h1>
+
+      {/* Show all the posts of the current user. */}
+      <section className="flex flex-col justify-center items-center gap-4 border rounded-xl">
+        <h1 className="mt-8">My Posts</h1>
         <ul>
           {posts.map((post) => (
-            <li key={post.$id} className="flex flex-col justify-center items-center m-4">
-              <strong>{post.title}</strong>
-              <p>{post.description}</p>
-              {/* Show the remove button to post owner. */}
+            <li key={post.$id} className="m-4">
+
+              {/* only showing the posts of the current user */}
               {user && user.$id === post.userId && (
-                <Button type="button" onClick={() => removePost(post.$id)}>
-                  Remove
-                </Button>
+                <div className="myPosts bg-slate-300 p-4 gap-3 shadow-lg flex flex-col justify-center items-center h-[20rem] w-full border rounded-lg overflow-hidden">
+                  <strong>{post.title}</strong>
+                  <p>{post.description}</p>
+
+                  {/* Show the remove button to post owner. */}
+                  {user && user.$id === post.userId && (
+                    <Button 
+                    type="button" 
+                    onClick={() => removePost(post.$id)}
+                    >
+                      Remove
+                    </Button>
+                  )}
+                </div>
               )}
             </li>
           ))}
         </ul>
       </section>
+
     </>
   );
 }
