@@ -25,6 +25,8 @@ export const AuthContextProvider = ({ children }) => {
             const response = await account.createEmailPasswordSession(userInfo.email, userInfo.password)
             const accountDetails = await account.get()
             setUser(accountDetails)
+            // console.log(accountDetails)
+            // console.log(accountDetails.name)
             // navigate("/")
         } catch (error) {
             console.error(error)
@@ -43,11 +45,16 @@ export const AuthContextProvider = ({ children }) => {
     const registerUser = async (userInfo) => {
         setLoading(true)
         try {
-            const response = await account.create( ID.unique(), userInfo.name, userInfo.email, userInfo.password )
-            await account.createEmailPasswordSession(userInfo.email, userInfo.password)
-            const accountDetails = await account.get()
-            setUser(accountDetails)
-            // navigate("/")
+            const response = await account.create(ID.unique(), userInfo.email, userInfo.password, userInfo.name)
+            if (response) {
+               await account.createEmailPasswordSession(userInfo.email, userInfo.password)
+                const accountDetails = await account.get()
+                setUser(accountDetails) 
+            }else {
+                console.log('response error: ' + JSON.stringify(response))
+            }
+            
+            // // navigate("/")
         } catch (error) {
             console.error(error)
         }

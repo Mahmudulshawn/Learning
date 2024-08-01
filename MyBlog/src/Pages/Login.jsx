@@ -15,12 +15,12 @@ function Login() {
     e.preventDefault()
     const userInfo = {email, password}
     loginUser(userInfo)
-    navigate('/')
+    navigate('/home')
   }
 
   useEffect(() => {
     if (user) {
-      navigate('/')
+      navigate('/home')
     }
   },[])
   

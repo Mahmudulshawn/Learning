@@ -7,7 +7,7 @@ import tiktok from '../assets/tiktok.png'
 import youtube from '../assets/youtube.png'
 function Footer() {
   return (
-    <div className='px-8 shadow bg-transparent backdrop-blur-3xl'>
+    <div className='px-8 shadow bg-transparent backdrop-blur-3xl border border-black/10'>
       <div className='flex justify-between items-center'>
         <div className='logo h-[5rem] w-[5rem] content-center '>
           <img

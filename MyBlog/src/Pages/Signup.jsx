@@ -14,16 +14,17 @@ function Signup() {
 
   useEffect(() => {
     if (user) {
-      navigate('/')
+      navigate('/home')
     }
   },[])
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const userInfo = { name, email, password }
+    const userInfo = {name, email, password}
     registerUser(userInfo)
   }
+
 
   return (
     <div className="container min-w-full min-h-screen flex justify-center items-center">
@@ -32,21 +33,20 @@ function Signup() {
       className='bg-transparent backdrop-blur-3xl h-[30rem] w-[30rem] flex flex-col items-center justify-center border rounded-md shadow-lg' 
       >
 
-
         <h1 className='text-3xl font-bold  '>Sign Up</h1>
-
-        <Input 
-        type='email' 
-        value={email} 
-        onChange={(e) => {setEmail(e.target.value)}}
-        placeholder='Enter your email...'
-        />
 
         <Input 
         type='text' 
         value={name}
         onChange={(e) => {setName(e.target.value)}}
         placeholder='Enter your name...'
+        />
+
+        <Input 
+        type='email' 
+        value={email} 
+        onChange={(e) => {setEmail(e.target.value)}}
+        placeholder='Enter your email...'
         />
 
         <Input 

@@ -21,7 +21,7 @@ function Header() {
   }
 
   return (
-    <nav className='bg-transparent backdrop:blur-lg shadow-lg flex justify-between items-center sticky top-0 py-2 px-8  '>
+    <nav className='bg-transparent backdrop-blur-3xl shadow-lg flex justify-between items-center sticky top-0 py-2 px-8  '>
       <div className="logo h-[5rem] w-[5rem] object-cover overflow-hidden content-center ">
         <img src={logo} 
         alt='logo'
@@ -41,7 +41,7 @@ function Header() {
         <li className='hover:text-red-600 hover:scale-125 '>
           <NavLink to="contact">Contact</NavLink>
         </li>
-        <li onClick={toggleTheme} className='text-xl'><FontAwesomeIcon icon={faCircleHalfStroke} /></li>
+        <li onClick={toggleTheme} className='text-xl cursor-pointer'><FontAwesomeIcon icon={faCircleHalfStroke} /></li>
       </ul>
 
       {user ? 

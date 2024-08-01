@@ -1,25 +1,30 @@
-import { useState } from "react";
 import {useAuth} from '../utils/AuthContext'
 import { usePost } from "../Contexts/PostContext";
-import Input from '../Components/Input'
-import Button from '../Components/Button'
+
+
 export default function Home() {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const { posts } = usePost();
 
   return (
     <>
+    {user ? 
       <section className="flex flex-col justify-center items-center gap-4 border rounded-xl p-4">
-        <h2>Latest Posts</h2>
+        <h1>Latest Posts</h1>
         <ul>
           {posts.map((post) => (
-            <li key={post.$id} className="flex flex-col justify-center items-center m-4">
-              <strong>{post.title}</strong>
-              <p>{post.description}</p>
+            <li key={post.$id} >
+              {/* <h1>Post By: {user.name}</h1> */}
+              <div className="postCard bg-slate-300 shadow-lg flex flex-col justify-center items-center m-4 min-h-[20rem] min-w-[25rem] border rounded-lg p-4 overflow-hidden">
+                <strong>{post.title}</strong>
+                <p>{post.description}</p>
+              </div>
             </li>
           ))}
         </ul>
       </section>
+    : null}
+      
     </>
   );
 }

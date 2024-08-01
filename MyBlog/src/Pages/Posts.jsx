@@ -27,14 +27,16 @@ export default function Post() {
           <form className="flex flex-col justify-center items-center">
             <Input
               type="text"
-              placeholder="Title"
+              placeholder="Enter Title..."
               value={title}
+              className="text-[1.3rem]"
               onChange={(event) => {
                 setTitle(event.target.value);
               }}
             />
             <textarea
-              placeholder="Description"
+              placeholder="Description..."
+              className="bg-gray-100 text-[1.2rem] min-h-[25rem] min-w-[30rem] p-2 text-black border border-black/10 rounded-xl outline-black/50 "
               value={description}
               onChange={(event) => {
                 setDescription(event.target.value);
@@ -42,6 +44,7 @@ export default function Post() {
             />
             <Button
               type="button"
+              className="mt-2"
               onClick={handleSubmit}
             >
               Submit
@@ -54,7 +57,7 @@ export default function Post() {
         </section>
       )}
       <section className="flex flex-col justify-center items-center gap-4 border rounded-xl p-4">
-        <h2 className="mt-8">Latest Posts</h2>
+        <h1 className="mt-8">Latest Posts</h1>
         <ul>
           {posts.map((post) => (
             <li key={post.$id} className="flex flex-col justify-center items-center m-4">
