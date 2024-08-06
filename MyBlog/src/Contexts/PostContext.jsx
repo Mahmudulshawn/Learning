@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { ID, Query } from 'appwrite'
-import { databases } from "../AppwriteConfig";
+import { databases,storage } from "../AppwriteConfig";
 import conf from '../conf/conf'
 
 
@@ -11,13 +11,32 @@ export const PostContextProvider = ({children}) => {
 
 
     const createPost = async (postInfo) => {
+
         try {
+            // const fileId = null;
+            // if(postInfo.file) {
+                const photo = await storage.createFile(
+                    conf.appwriteBucketId,
+                    ID.unique(),
+                    postInfo.file,
+                );
+                const fileId = photo.$id;
+            // }
+
+
             const response = await databases.createDocument(
             conf.appwriteDatabaseId,
             conf.appwriteCollectionId,
             ID.unique(),
-            postInfo
-            )
+            { 
+                // userId: postInfo.userId,
+                // title: postInfo.title,
+                // description: postInfo.description,
+                // fileId: photo.$id,
+                ...postInfo,
+                fileId,
+            }
+            );
             setPosts((posts) => [response, ...posts].slice(0, 10))
         } catch (error) {
             console.error(error)

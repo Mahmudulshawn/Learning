@@ -3,19 +3,25 @@ import {useAuth} from '../utils/AuthContext'
 import { usePost } from "../Contexts/PostContext";
 import Input from '../Components/Input'
 import Button from '../Components/Button'
+import conf from '../conf/conf'
+
+
+
 export default function Post() {
   const {user} = useAuth();
   const { posts, createPost, removePost } = usePost();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    createPost({ userId:user.$id, title, description })
+    createPost({ userId:user.$id, title, description, file })
     setTitle('')
     setDescription('')
+    setFile(null)
   }
 
   return (
@@ -41,6 +47,12 @@ export default function Post() {
               value={description}
               onChange={(event) => {
                 setDescription(event.target.value);
+              }}
+            />
+            <Input
+              type="file"
+              onChange={(event) => {
+                setFile(event.target.files[0]);
               }}
             />
             <Button
@@ -70,6 +82,10 @@ export default function Post() {
                 <div className="myPosts bg-slate-300 p-4 gap-3 shadow-lg flex flex-col justify-center items-center h-[20rem] w-full border rounded-lg overflow-hidden">
                   <strong>{post.title}</strong>
                   <p>{post.description}</p>
+                  <img src={`${conf.appwriteUrl}/storage/buckets/${conf.appwriteBucketId}/files/${post.fileId}/view?project=${conf.appwriteProjectId}`}
+                  alt="photo" 
+                  style={{width: "100px", height: "100px"}}
+                  />
 
                   {/* Show the remove button to post owner. */}
                   {user && user.$id === post.userId && (

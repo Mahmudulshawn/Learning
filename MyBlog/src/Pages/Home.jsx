@@ -1,6 +1,6 @@
 import {useAuth} from '../utils/AuthContext'
 import { usePost } from "../Contexts/PostContext";
-
+import conf from '../conf/conf'
 
 export default function Home() {
   const { user } = useAuth();
@@ -21,6 +21,10 @@ export default function Home() {
               <div className="postCard bg-slate-300 shadow-lg flex flex-col justify-center items-center m-4 min-h-[20rem] w-full border rounded-lg p-4 overflow-hidden">
                 <strong>{post.title}</strong>
                 <p>{post.description}</p>
+                <img src={`${conf.appwriteUrl}/storage/buckets/${conf.appwriteBucketId}/files/${post.fileId}/view?project=${conf.appwriteProjectId}`}
+                  alt="photo" 
+                  style={{width: "100px", height: "100px"}}
+                  />
               </div>
             </li>
           ))}
