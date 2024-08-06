@@ -29,12 +29,12 @@ export const PostContextProvider = ({children}) => {
             conf.appwriteCollectionId,
             ID.unique(),
             { 
-                // userId: postInfo.userId,
-                // title: postInfo.title,
-                // description: postInfo.description,
-                // fileId: photo.$id,
-                ...postInfo,
-                fileId,
+                userId: postInfo.userId,
+                title: postInfo.title,
+                description: postInfo.description,
+                fileId: photo.$id,
+                // ...postInfo,
+                // fileId,
             }
             );
             setPosts((posts) => [response, ...posts].slice(0, 10))
@@ -57,7 +57,7 @@ export const PostContextProvider = ({children}) => {
         }
     }
 
-    const getPost = async () => {
+    const getPosts = async () => {
         try {
             const response = await databases.listDocuments(
                 conf.appwriteDatabaseId,
@@ -70,8 +70,35 @@ export const PostContextProvider = ({children}) => {
         }
     }
 
+    const updatePost = async (id, postInfo) => {
+        try {
+            const response = await databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                id,
+                postInfo
+            );
+            setPosts((posts) => posts.map((post) => (post.$id === id ? response : post)));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getPost = async (id) => {
+        try {
+            const response = await databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                id,
+            );
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
-        getPost()
+        getPosts()
     },[])
 
 
@@ -81,6 +108,7 @@ export const PostContextProvider = ({children}) => {
         createPost,
         removePost,
         getPost,
+        updatePost,
     }
 
     return (<PostContext.Provider value={contextData}>{children}</PostContext.Provider>)

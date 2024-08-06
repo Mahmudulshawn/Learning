@@ -4,10 +4,12 @@ import { usePost } from "../Contexts/PostContext";
 import Input from '../Components/Input'
 import Button from '../Components/Button'
 import conf from '../conf/conf'
+import {useNavigate} from 'react-router-dom'
 
 
 
 export default function Post() {
+  const navigate = useNavigate()
   const {user} = useAuth();
   const { posts, createPost, removePost } = usePost();
 
@@ -22,6 +24,10 @@ export default function Post() {
     setTitle('')
     setDescription('')
     setFile(null)
+  }
+
+  const handleClick = (id) => {
+    navigate(`/post/${id}`)
   }
 
   return (
@@ -64,10 +70,13 @@ export default function Post() {
             </Button>
           </form>
         </section>
+
       ) : (
+
         <section>
           <p>Please login to submit an post.</p>
         </section>
+
       )}
 
       {/* Show all the posts of the current user. */}
@@ -79,7 +88,7 @@ export default function Post() {
 
               {/* only showing the posts of the current user */}
               {user && user.$id === post.userId && (
-                <div className="myPosts bg-slate-300 p-4 gap-3 shadow-lg flex flex-col justify-center items-center h-[20rem] w-full border rounded-lg overflow-hidden">
+                <div className="myPosts bg-slate-300 p-4 gap-3 shadow-lg flex flex-col justify-center items-center min-h-[20rem] min-w-[25rem] border rounded-lg overflow-hidden">
                   <strong>{post.title}</strong>
                   <p>{post.description}</p>
                   <img src={`${conf.appwriteUrl}/storage/buckets/${conf.appwriteBucketId}/files/${post.fileId}/view?project=${conf.appwriteProjectId}`}
@@ -89,12 +98,22 @@ export default function Post() {
 
                   {/* Show the remove button to post owner. */}
                   {user && user.$id === post.userId && (
-                    <Button 
-                    type="button" 
-                    onClick={() => removePost(post.$id)}
-                    >
-                      Remove
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                      type="button"
+                      className="px-6"
+                      onClick={() => handleClick(post.$id)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                      type="button"
+                      onClick={() => removePost(post.$id)}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+
                   )}
                 </div>
               )}

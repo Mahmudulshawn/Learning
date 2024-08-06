@@ -14,6 +14,7 @@ import { AuthContextProvider } from './utils/AuthContext.jsx'
 import ThemeProvider from './Providers/ThemeProvider.jsx'
 import { ThemeContextProvider } from './Contexts/ThemeContext.jsx'
 import { PostContextProvider } from './Contexts/PostContext.jsx'
+import SinglePost from './Pages/SinglePost.jsx'
 
 
 const router = createBrowserRouter(
@@ -62,6 +63,10 @@ const router = createBrowserRouter(
         {
           path: '/signup',
           element: <Signup />,
+        },
+        {
+          path: '/post/:id',
+          element: <SinglePost />
         },
         // {
         //   path: '/logout',
