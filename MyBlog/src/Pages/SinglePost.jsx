@@ -33,7 +33,7 @@ function SinglePost() {
                     <div className="title mb-4 font-bold text-2xl">
                         {title}
                     </div>
-                    <div className="description text-gray-800">
+                    <div className="description">
                         {description}
                     </div>
                 </div>
