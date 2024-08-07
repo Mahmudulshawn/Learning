@@ -14,6 +14,7 @@ import { AuthContextProvider } from './utils/AuthContext.jsx'
 import ThemeProvider from './Providers/ThemeProvider.jsx'
 import { ThemeContextProvider } from './Contexts/ThemeContext.jsx'
 import { PostContextProvider } from './Contexts/PostContext.jsx'
+import EditPost from './Pages/EditPost.jsx'
 import SinglePost from './Pages/SinglePost.jsx'
 
 
@@ -67,6 +68,10 @@ const router = createBrowserRouter(
         {
           path: '/post/:id',
           element: <SinglePost />
+        },
+        {
+          path: '/edit-post/:id',
+          element: <EditPost />,
         },
         // {
         //   path: '/logout',

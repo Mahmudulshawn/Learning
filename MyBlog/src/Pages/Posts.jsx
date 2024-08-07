@@ -27,7 +27,7 @@ export default function Post() {
   }
 
   const handleClick = (id) => {
-    navigate(`/post/${id}`)
+    navigate(`/edit-post/${id}`)
   }
 
   return (

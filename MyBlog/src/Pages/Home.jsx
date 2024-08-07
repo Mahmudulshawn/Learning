@@ -8,10 +8,11 @@ export default function Home() {
   const { posts } = usePost();
   const navigate = useNavigate()
 
-  const handleClick = (id, userId) => {
-    if (user.$id === userId) {
-      navigate(`/post/${id}`)
-    }
+  const handleClick = (id) => {
+    // if (user.$id === userId) {
+    //   navigate(`/post/${id}`)
+    // }
+    navigate(`/post/${id}`)
   }
 
   return (
@@ -22,7 +23,7 @@ export default function Home() {
         <ul className='flex flex-wrap gap-4 '>
           {posts.map((post) => (
             <li key={post.$id}
-            onClick={() => handleClick(post.$id, post.userId)} 
+            onClick={() => handleClick(post.$id)}
             className='cursor-pointer'
             >
               <div className="postCard bg-slate-300 shadow-lg flex flex-col justify-center items-center m-4 min-h-[20rem] min-w-[25rem] border rounded-lg p-4">
@@ -30,6 +31,7 @@ export default function Home() {
                 <p>{post.description}</p>
                 <img src={`${conf.appwriteUrl}/storage/buckets/${conf.appwriteBucketId}/files/${post.fileId}/view?project=${conf.appwriteProjectId}`}
                   alt="photo" 
+                  className='rounded-xl'
                   style={{width: "100px", height: "100px"}}
                 />
               </div>

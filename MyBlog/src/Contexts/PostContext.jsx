@@ -86,16 +86,24 @@ export const PostContextProvider = ({children}) => {
 
     const getPost = async (id) => {
         try {
-            const response = await databases.getDocument(
+            const SinglePost = await databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 id,
             );
-            return response;
+            return SinglePost;
         } catch (error) {
             console.error(error);
         }
     };
+
+    const getFilePreview = async (fileId) => {
+        const file = await storage.getFilePreview(
+            conf.appwriteBucketId,
+            fileId,
+        )
+        return file;
+    }
 
     useEffect(() => {
         getPosts()
@@ -109,6 +117,7 @@ export const PostContextProvider = ({children}) => {
         removePost,
         getPost,
         updatePost,
+        getFilePreview,
     }
 
     return (<PostContext.Provider value={contextData}>{children}</PostContext.Provider>)
