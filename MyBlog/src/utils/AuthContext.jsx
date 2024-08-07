@@ -31,6 +31,7 @@ export const AuthContextProvider = ({ children }) => {
             // navigate("/")
         } catch (error) {
             console.error(error)
+            alert('no user found!')
         }
         setLoading(false)
     }
