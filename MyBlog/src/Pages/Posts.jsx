@@ -82,10 +82,9 @@ export default function Post() {
       {/* Show all the posts of the current user. */}
       <section className="flex flex-col justify-center items-center gap-4 border rounded-xl">
         <h1 className="mt-8">My Posts</h1>
-        <ul>
+        <ul className="posts">
           {posts.map((post) => (
             <li key={post.$id} className="m-4">
-
               {/* only showing the posts of the current user */}
               {user && user.$id === post.userId && (
                 <div className="myPosts bg-slate-300 p-4 gap-3 shadow-lg flex flex-col justify-center items-center min-h-[20rem] min-w-[25rem] border rounded-lg overflow-hidden">
@@ -93,6 +92,7 @@ export default function Post() {
                   <p>{post.description}</p>
                   <img src={`${conf.appwriteUrl}/storage/buckets/${conf.appwriteBucketId}/files/${post.fileId}/view?project=${conf.appwriteProjectId}`}
                   alt="photo" 
+                  className="rounded-xl"
                   style={{width: "100px", height: "100px"}}
                   />
 

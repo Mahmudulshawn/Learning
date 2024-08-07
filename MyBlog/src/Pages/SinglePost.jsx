@@ -29,13 +29,13 @@ function SinglePost() {
     return (
         <section>
             <div className="container flex justify-between h-full min-w-screen pl-16 ">
-                <div className='texts px-8 flex-start flex-col my-8 '>
+                <div className='texts px-8 flex-start flex-col my-8 w-1/2 '>
                     <div className="title mb-4 font-bold text-2xl">
                         {title}
                     </div>
-                    <div className="description">
+                    <p className="description overflow-hidden">
                         {description}
-                    </div>
+                    </p>
                 </div>
                 <div className='image px-8 my-8'>
                     <img src={file}
